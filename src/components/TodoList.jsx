@@ -1,40 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
+import TodoItem from './TodoItem';
 
-function InputTodo(props) {
-  const { addTodoItem } = props;
-  const [inputField, setInputField] = useState({
-    title: '',
-  });
-
-  const onChange = (e) => {
-    setInputField({
-      title: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (inputField.title.trim()) {
-      addTodoItem(inputField.title);
-      setInputField({
-        title: '',
-      });
-    } else {
-      alert('ToDo Title cannot be empty');
-    }
-  };
+function TodoList(props) {
+  const items = props.todos.map((todo) => (
+    <TodoItem
+      key={todo.id}
+      todo={todo}
+      updateCheckbox={props.updateCheckbox}
+      deleteItem={props.deleteItem}
+    />
+  ));
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Add to do...."
-        value={inputField.title}
-        onChange={onChange}
-      />
-      <button>+</button>
-    </form>
+    <div>
+      {items}
+    </div>
   );
 }
 
-export default InputTodo;
+export default TodoList;

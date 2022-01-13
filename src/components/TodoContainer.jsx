@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from './Header';
 import InputTodo from './InputTodo';
 import TodoList from './TodoList';
+import '../App.css';
 
 function TodoContainer() {
   const [todos, setTodos] = useState([
@@ -49,14 +50,16 @@ function TodoContainer() {
   };
 
   return (
-    <div>
-      <Header />
-      <InputTodo addTodoItem={addTodoItem} />
-      <TodoList
-        todos={todos}
-        updateCheckbox={updateCheckbox}
-        deleteItem={delTodo}
-      />
+    <div className="container">
+      <div className="inner">
+        <Header />
+        <InputTodo addTodoItem={addTodoItem} />
+        <TodoList
+          todos={todos}
+          updateCheckbox={updateCheckbox}
+          deleteItem={delTodo}
+        />
+      </div>
     </div>
   );
 }
