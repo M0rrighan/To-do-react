@@ -39,10 +39,19 @@ function TodoContainer() {
     ]);
   };
 
+  const addTodoItem = (title) => {
+    const newTodo = {
+      id: [...todos].length + 1,
+      title,
+      completed: false,
+    };
+    setTodos([...todos, newTodo]);
+  };
+
   return (
     <div>
       <Header />
-      <InputTodo />
+      <InputTodo addTodoItem={addTodoItem} />
       <TodoList
         todos={todos}
         updateCheckbox={updateCheckbox}
