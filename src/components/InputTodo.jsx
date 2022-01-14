@@ -1,11 +1,13 @@
-/* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { MdAddCircleOutline } from 'react-icons/md';
 
 function InputTodo(props) {
   const [inputField, setInputField] = useState({
     title: '',
   });
+
+  const { addTodoItem } = props;
 
   const onChange = (e) => {
     setInputField({
@@ -16,7 +18,7 @@ function InputTodo(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputField.title.trim()) {
-      props.addTodoItem(inputField.title);
+      addTodoItem(inputField.title);
       setInputField({
         title: '',
       });
@@ -37,7 +39,7 @@ function InputTodo(props) {
         onChange={onChange}
         className="input-text"
       />
-      <button className="input-submit">
+      <button type="button" className="input-submit">
         <MdAddCircleOutline style={{
           color: '#0f8a0f',
           fontSize: '1.25rem',
@@ -48,5 +50,9 @@ function InputTodo(props) {
     </form>
   );
 }
+
+InputTodo.propTypes = {
+  addTodoItem: PropTypes.func.isRequired,
+};
 
 export default InputTodo;

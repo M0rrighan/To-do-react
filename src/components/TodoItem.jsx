@@ -1,17 +1,20 @@
-/* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { MdDeleteForever } from 'react-icons/md';
 import styles from './TodoItem.module.css';
 
 function TodoItem(props) {
-  const { id, title, completed } = props.todo;
+  const {
+    todo, updateCheckbox, deleteItem, updateTitle,
+  } = props;
+  const { id, title, completed } = todo;
 
   function handleCheckbox() {
-    props.updateCheckbox(id);
+    updateCheckbox(id);
   }
 
   function handleDeleteItem() {
-    props.deleteItem(id);
+    deleteItem(id);
   }
 
   const [editing, setEditing] = useState(false);
@@ -20,14 +23,14 @@ function TodoItem(props) {
     setEditing(true);
   };
 
-  const handleUpdatedDone = (e) => {
-    if (e.key === 'Enter') {
+  const handleUpdatedDone = (event) => {
+    if (event.key === 'Enter') {
       setEditing(false);
     }
   };
 
   const handleUpdateTitle = (e) => {
-    props.updateTitle(e.target.value, id);
+    updateTitle(e.target.value, id);
   };
 
   const viewMode = {};
@@ -58,7 +61,7 @@ function TodoItem(props) {
         <span style={completed ? completedStyle : null}>
           {title}
         </span>
-        <button onClick={handleDeleteItem}>
+        <button type="button" onClick={handleDeleteItem}>
           <MdDeleteForever style={{
             color: '#eb4747',
             fontSize: '1.25rem',
@@ -70,7 +73,7 @@ function TodoItem(props) {
       <input
         type="text"
         style={editMode}
-        className={styles.textInput}
+        className={styles.textinput}
         value={title}
         onChange={handleUpdateTitle}
         onKeyDown={handleUpdatedDone}
@@ -78,5 +81,12 @@ function TodoItem(props) {
     </li>
   );
 }
+
+TodoItem.propTypes = {
+  updateTitle: PropTypes.func.isRequired,
+  updateCheckbox: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+  todo: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default TodoItem;

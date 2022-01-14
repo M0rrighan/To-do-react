@@ -31,7 +31,7 @@ body {
   margin-bottom: 20px;
   display: flex;
   border-radius: calc(0.5 * 100px);
-  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.38);
+  box-shadow: 0 1px 6px 0 rgb(0 0 0 / 38%);
   justify-content: space-evenly;
 }
 
@@ -71,11 +71,11 @@ body {
 
 /* NavBar */
 
-.navBar {
+.navbar {
   position: relative;
 }
 
-.navBar button {
+.navbar button {
   position: fixed;
   left: 40px;
   top: 40px;
@@ -86,7 +86,7 @@ body {
   outline: none;
 }
 
-.menuNav {
+.menunav {
   overflow-y: scroll;
   list-style: none;
   position: fixed;
@@ -101,7 +101,7 @@ body {
   z-index: 9;
 }
 
-.menuNav.showMenu {
+.menunav.showmenu {
   width: 100%;
 }
 
@@ -114,11 +114,13 @@ a {
   font-weight: bold;
 }
 
-.menuNav li:first-child {
+.menunav li:first-child {
   margin-top: 7rem;
 }
 
-.about__content {
+.about-content {
   padding: 8rem 40px;
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }

@@ -1,14 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
 
 function TodoList(props) {
-  const items = props.todos.map((todo) => (
+  const {
+    todos, updateCheckbox, updateTitle, deleteItem,
+  } = props;
+
+  const items = todos.map((todo) => (
     <TodoItem
       key={todo.id}
       todo={todo}
-      updateCheckbox={props.updateCheckbox}
-      updateTitle={props.updateTitle}
-      deleteItem={props.deleteItem}
+      updateCheckbox={updateCheckbox}
+      updateTitle={updateTitle}
+      deleteItem={deleteItem}
     />
   ));
 
@@ -18,5 +23,12 @@ function TodoList(props) {
     </div>
   );
 }
+
+TodoList.propTypes = {
+  todos: PropTypes.objectOf(Array).isRequired,
+  updateCheckbox: PropTypes.func.isRequired,
+  updateTitle: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+};
 
 export default TodoList;
