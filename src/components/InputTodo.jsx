@@ -1,4 +1,6 @@
+/* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
+import { MdAddCircleOutline } from 'react-icons/md';
 
 function InputTodo(props) {
   const [inputField, setInputField] = useState({
@@ -24,7 +26,7 @@ function InputTodo(props) {
   };
 
   return (
-    <form 
+    <form
       className="form-container"
       onSubmit={handleSubmit}
     >
@@ -35,7 +37,14 @@ function InputTodo(props) {
         onChange={onChange}
         className="input-text"
       />
-      <button className="input-submit">+</button>
+      <button className="input-submit">
+        <MdAddCircleOutline style={{
+          color: '#0f8a0f',
+          fontSize: '1.25rem',
+          fontWeight: '600',
+        }}
+        />
+      </button>
     </form>
   );
 }
