@@ -1,11 +1,26 @@
-import React from 'react'
+import React from 'react';
 
-function Navbar() {
+const Navbar = () => {
+  const links = [
+    {
+      id: 1,
+      path: '/',
+      text: 'Home',
+    },
+    {
+      id: 2,
+      path: '/about',
+      text: 'About',
+    },
+  ];
+
   return (
-    <div>
-      Test
-    </div>
+    <nav className="navBar">
+      <ul>
+        {links.map((link) => <li key={link.id}>{link.text}</li>)}
+      </ul>
+    </nav>
   );
-}
+};
 
 export default Navbar;
