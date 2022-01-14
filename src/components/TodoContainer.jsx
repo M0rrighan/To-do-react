@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
 import Header from './Header';
 import InputTodo from './InputTodo';
@@ -5,23 +6,7 @@ import TodoList from './TodoList';
 import '../App.css';
 
 function TodoContainer() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      title: 'Task 1',
-      completed: true,
-    },
-    {
-      id: 2,
-      title: 'Task 2',
-      completed: false,
-    },
-    {
-      id: 3,
-      title: 'Task 3',
-      completed: false,
-    },
-  ]);
+  const [todos, setTodos] = useState([]);
 
   const updateCheckbox = (id) => {
     setTodos((prevState) => prevState.map((todo) => {
@@ -32,6 +17,17 @@ function TodoContainer() {
       }
       return todo;
     }));
+  };
+
+  const updateTitle = (updatedTitle, id) => {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === id) {
+          todo.title = updatedTitle;
+        }
+        return todo;
+      }),
+    );
   };
 
   const delTodo = (id) => {
@@ -57,6 +53,7 @@ function TodoContainer() {
         <TodoList
           todos={todos}
           updateCheckbox={updateCheckbox}
+          updateTitle={updateTitle}
           deleteItem={delTodo}
         />
       </div>

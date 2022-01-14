@@ -7,6 +7,7 @@ function TodoList(props) {
       key={todo.id}
       todo={todo}
       updateCheckbox={props.updateCheckbox}
+      updateTitle={props.updateTitle}
       deleteItem={props.deleteItem}
     />
   ));

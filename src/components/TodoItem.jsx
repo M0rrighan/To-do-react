@@ -1,16 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './TodoItem.module.css';
 
 function TodoItem(props) {
-  const { todo, updateCheckbox, deleteItem } = props;
-  const { id, title, completed } = todo;
+  const { id, title, completed } = props.todo;
 
   function handleCheckbox() {
-    updateCheckbox(id);
+    props.updateCheckbox(id);
   }
 
-  function deleteItm() {
-    deleteItem(id);
+  function handleDeleteItem() {
+    props.deleteItem(id);
+  }
+
+  const [editing, setEditing] = useState(false);
+
+  const handleEditing = () => {
+    setEditing(true);
+  };
+
+  const handleUpdatedDone = (e) => {
+    if (e.key === 'Enter') {
+      setEditing(false);
+    }
+  };
+
+  const handleUpdateTitle = (e) => {
+    props.updateTitle(e.target.value, id);
+  };
+
+  const viewMode = {};
+  const editMode = {};
+
+  if (editing) {
+    viewMode.display = 'none';
+  } else {
+    editMode.display = 'none';
   }
 
   const completedStyle = {
@@ -22,16 +46,26 @@ function TodoItem(props) {
 
   return (
     <li className={styles.item}>
+      <div onDoubleClick={handleEditing} style={viewMode}>
+        <input
+          type="checkbox"
+          checked={completed}
+          onChange={handleCheckbox}
+          className={styles.checkbox}
+        />
+        <span style={completed ? completedStyle : null}>
+          {title}
+        </span>
+        <button onClick={handleDeleteItem}>DEL</button>
+      </div>
       <input
-        type="checkbox"
-        checked={completed}
-        onChange={handleCheckbox}
-        className={styles.checkbox}
+        type="text"
+        style={editMode}
+        className={styles.textInput}
+        value={title}
+        onChange={handleUpdateTitle}
+        onKeyDown={handleUpdatedDone}
       />
-      <span style={completed ? completedStyle : null}>
-        {title}
-      </span>
-      <button onClick={deleteItm}>DEL</button>
     </li>
   );
 }
