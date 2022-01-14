@@ -1,5 +1,4 @@
-/* eslint-disable no-param-reassign */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import InputTodo from './InputTodo';
 import TodoList from './TodoList';
@@ -7,6 +6,20 @@ import '../App.css';
 
 function TodoContainer() {
   const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    // getting stored items
+    const loadedTodos = JSON.parse(localStorage.getItem('todos'));
+
+    if (loadedTodos) {
+      setTodos(loadedTodos);
+    }
+  }, []);
+
+  useEffect(() => {
+  // store todos items
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   const updateCheckbox = (id) => {
     setTodos((prevState) => prevState.map((todo) => {
@@ -30,12 +43,6 @@ function TodoContainer() {
     );
   };
 
-  const delTodo = (id) => {
-    setTodos([
-      ...todos.filter((todo) => todo.id !== id),
-    ]);
-  };
-
   const addTodoItem = (title) => {
     const newTodo = {
       id: [...todos].length + 1,
@@ -43,6 +50,12 @@ function TodoContainer() {
       completed: false,
     };
     setTodos([...todos, newTodo]);
+  };
+
+  const deleteTodo = (id) => {
+    setTodos([
+      ...todos.filter((todo) => todo.id !== id),
+    ]);
   };
 
   return (
@@ -54,7 +67,7 @@ function TodoContainer() {
           todos={todos}
           updateCheckbox={updateCheckbox}
           updateTitle={updateTitle}
-          deleteItem={delTodo}
+          deleteItem={deleteTodo}
         />
       </div>
     </div>
